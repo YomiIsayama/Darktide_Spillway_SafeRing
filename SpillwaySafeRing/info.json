@@ -1,12 +1,12 @@
 {
   "name": "Spillway Safe Ring",
-  "description": "Highlights the safe ring during the Spillway wizard boss floor attack with a bright purple ground fill and world marker.",
-  "version": "1.1.0",
+  "description": "Highlights the safe ring during the Spillway wizard boss floor attack with a customizable ground fill and world marker.",
+  "version": "1.2.0",
   "author": "Codex",
   "localization": {
     "zh-cn": {
       "name": "泄洪道安全圈高亮",
-      "description": "在泄洪道最终首领的地面环攻击中，以醒目的紫色地面填充和穿墙标记高亮安全圈。"
+      "description": "在泄洪道最终首领的地面环攻击中，以可自定义颜色的地面填充和穿墙标记高亮安全圈。"
     }
   }
 }

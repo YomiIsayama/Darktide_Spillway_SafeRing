@@ -120,6 +120,10 @@ template.on_enter = function(widget, marker)
     set_rgb(style.icon.color, rgb)
     set_rgb(style.label.text_color, rgb)
 
+    style.background.color[2] = math.floor(rgb[1] * 0.15)
+    style.background.color[3] = math.floor(rgb[2] * 0.12)
+    style.background.color[4] = math.floor(rgb[3] * 0.22)
+
     local icon_size = math.floor(size * 0.52)
 
     style.icon.size[1], style.icon.size[2] = icon_size, icon_size

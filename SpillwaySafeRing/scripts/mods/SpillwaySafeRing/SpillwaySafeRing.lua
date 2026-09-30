@@ -9,7 +9,7 @@ local CIRCLE_SETTINGS = RenegadeWizardActions.dance.circle_settings
 local DECAL_UNIT = "content/levels/training_grounds/fx/decal_aoe_indicator"
 local DECAL_PACKAGE = "content/levels/training_grounds/missions/mission_tg_basic_combat_01"
 local DECAL_MATERIAL_SLOT = "projector"
-local RING_COLOR = { 0.72, 0.16, 1 }
+local DEFAULT_HIGHLIGHT_COLOR = { 255, 184, 41, 255 }
 local RING_Z_OFFSET = 0.18
 local FILL_RING_SPACING = 0.10
 local MARKER_Z_OFFSET = 2.1
@@ -18,12 +18,27 @@ local WORLD_MARKER_ELEMENT = "HudElementWorldMarkers"
 local instances_by_template = {}
 local instances = {}
 
+local function normalise_highlight_color(color)
+    local source = color or DEFAULT_HIGHLIGHT_COLOR
+
+    if type(source) == "userdata" and Script.type_name(source) == "Vector4" then
+        source = { Quaternion.to_elements(source) }
+    end
+
+    if #source >= 4 then
+        return source[2] / 255, source[3] / 255, source[4] / 255
+    end
+
+    return source[1] / 255, source[2] / 255, source[3] / 255
+end
+
 local function refresh_settings()
     mod._spillway_settings = {
         enabled = mod:get("enabled"),
         show_ground_rings = mod:get("show_ground_rings"),
         show_world_marker = mod:get("show_world_marker"),
         pulse = mod:get("pulse"),
+        highlight_color = { normalise_highlight_color(mod:get("highlight_color")) },
         ground_alpha = mod:get("ground_alpha") / 100,
         marker_size = mod:get("marker_size"),
         marker_max_distance = mod:get("marker_max_distance"),
@@ -131,7 +146,9 @@ local function set_decal_color_and_scale(instance, unit, radius, alpha)
     local diameter = radius * 2
     local colour = Quaternion.identity()
 
-    Quaternion.set_xyzw(colour, RING_COLOR[1], RING_COLOR[2], RING_COLOR[3], 0)
+    local highlight_color = settings().highlight_color
+
+    Quaternion.set_xyzw(colour, highlight_color[1], highlight_color[2], highlight_color[3], 0)
     Unit.set_local_scale(unit, 1, Vector3(diameter, diameter, 1))
     Unit.set_vector4_for_material(unit, DECAL_MATERIAL_SLOT, "particle_color", colour, true)
     Unit.set_scalar_for_material(unit, DECAL_MATERIAL_SLOT, "color_multiplier", alpha)
@@ -252,7 +269,11 @@ local function add_marker(instance)
     local label = string.format("%s  %d/%d", mod:localize("safe_marker"), safe_zone, #CIRCLE_SETTINGS)
     local position = instance.center + Vector3(0, 0, MARKER_Z_OFFSET)
     local data = {
-        color = { 190, 70, 255 },
+        color = {
+            math.floor(settings().highlight_color[1] * 255),
+            math.floor(settings().highlight_color[2] * 255),
+            math.floor(settings().highlight_color[3] * 255),
+        },
         size = settings().marker_size,
         icon = "content/ui/materials/hud/interactions/icons/location",
         label = label,

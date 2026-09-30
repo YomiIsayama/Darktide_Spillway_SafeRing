@@ -4,8 +4,8 @@ return {
         ["zh-cn"] = "泄洪道安全圈高亮",
     },
     mod_description = {
-        en = "Highlights the safe ring during the Spillway wizard boss floor attack with a bright purple ground fill and world marker.",
-        ["zh-cn"] = "在泄洪道最终首领的地面环攻击中，以醒目的紫色地面填充和穿墙标记高亮安全圈。",
+        en = "Highlights the safe ring during the Spillway wizard boss floor attack with a customizable ground fill and world marker.",
+        ["zh-cn"] = "在泄洪道最终首领的地面环攻击中，以可自定义颜色的地面填充和穿墙标记高亮安全圈。",
     },
     enabled = {
         en = "Master enable",
@@ -38,6 +38,14 @@ return {
     pulse_tooltip = {
         en = "Pulses the purple ground fill to make it easier to notice.",
         ["zh-cn"] = "让紫色地面填充脉冲闪烁，更容易注意到。",
+    },
+    highlight_color = {
+        en = "Highlight colour",
+        ["zh-cn"] = "高亮颜色",
+    },
+    highlight_color_tooltip = {
+        en = "Custom colour used for the purple ground fill, SAFE marker, icon and label. Default is purple.",
+        ["zh-cn"] = "自定义地面填充、SAFE 标记、图标和文字的颜色。默认是紫色。",
     },
     ground_alpha = {
         en = "Ground fill opacity",

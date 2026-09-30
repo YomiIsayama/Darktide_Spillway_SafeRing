@@ -35,6 +35,14 @@ return {
                 tooltip = "pulse_tooltip",
             },
             {
+                setting_id = "highlight_color",
+                type = "color",
+                default_value = { 255, 184, 41, 255 },
+                has_alpha = false,
+                title = "highlight_color",
+                tooltip = "highlight_color_tooltip",
+            },
+            {
                 setting_id = "ground_alpha",
                 type = "numeric",
                 range = { 20, 100 },
